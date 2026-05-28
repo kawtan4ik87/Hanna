@@ -15,6 +15,8 @@
       --accent-2: #8f4a2f;
       --soft: #e9f3f5;
       --soft-2: #f5ebe4;
+      --soft-3: #edf0ff;
+      --ok: #2f6f4e;
     }
 
     * {
@@ -106,6 +108,11 @@
       border-color: #e0c8b8;
     }
 
+    .kid-path {
+      background: var(--soft-3);
+      border-color: #cbd2f2;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -166,6 +173,57 @@
       font-weight: 700;
     }
 
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 10px;
+      margin: 12px 0 0;
+    }
+
+    .step {
+      position: relative;
+      padding: 12px 12px 12px 46px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 12px 0 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .checklist strong {
+      color: var(--ok);
+    }
+
     @media (max-width: 680px) {
       .term {
         grid-template-columns: 1fr;
@@ -181,6 +239,7 @@
       <p class="lead">Сухая шпаргалка для нулевого уровня: что есть что, куда идти с задачей и как просить AI-агента так, чтобы он понял и сделал.</p>
       <nav class="toolbar" aria-label="Разделы">
         <a href="#start">С чего начать</a>
+        <a href="#kid-start">Для 12 лет</a>
         <a href="#chat-or-agent">ChatGPT или агент</a>
         <a href="#prompts">Фразы</a>
         <a href="#how-to-ask">Как писать запросы</a>
@@ -217,6 +276,56 @@
       <div class="note">
         <strong>Главная мысль:</strong> не надо изучать все инструменты сразу. Для старта достаточно одного чата, одного агента и одной отдельной рабочей папки.
       </div>
+    </section>
+
+    <section id="kid-start">
+      <h2>Маршрут для 12 лет</h2>
+      <div class="kid-path note">
+        <p><strong>Важно:</strong> AI не надо учить как школьный предмет. С ним лучше знакомиться через маленькие эксперименты: спросил, посмотрел ответ, улучшил вопрос, сравнил результат.</p>
+        <p>Если информации слишком много, выбери только одну миссию ниже и закрой страницу после неё.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Миссия 1: объяснить сложное</h3>
+          <p>Попроси AI объяснить любую тему из школы или хобби.</p>
+          <pre>Объясни мне [тема] простыми словами.
+Сначала дай короткое объяснение.
+Потом дай пример.
+Потом задай мне 1 вопрос, чтобы проверить, понял ли я.</pre>
+        </article>
+        <article class="card">
+          <h3>Миссия 2: сделать план</h3>
+          <p>Попроси AI разложить большую задачу на маленькие шаги.</p>
+          <pre>Я хочу научиться [цель].
+Сделай план на 7 дней.
+Каждый день: одно маленькое действие на 15 минут.</pre>
+        </article>
+        <article class="card">
+          <h3>Миссия 3: проверить идею</h3>
+          <p>Попроси AI улучшить идею, но не переделывать её полностью.</p>
+          <pre>Вот моя идея: [идея].
+Скажи, что в ней хорошего.
+Назови 2 слабых места.
+Предложи 1 улучшение.</pre>
+        </article>
+      </div>
+
+      <h3>Как читать эту страницу</h3>
+      <div class="steps">
+        <div class="step"><strong>Не читай всё подряд.</strong> Открой один раздел, который нужен прямо сейчас.</div>
+        <div class="step"><strong>Копируй готовую фразу.</strong> Замени слова в квадратных скобках на свою тему.</div>
+        <div class="step"><strong>Проверяй ответ.</strong> Если ответ слишком длинный, попроси: “Сделай короче”.</div>
+        <div class="step"><strong>Останавливай AI.</strong> Если он ушёл не туда, напиши: “Стоп. Вернись к моей задаче”.</div>
+      </div>
+
+      <h3>Если стало слишком много</h3>
+      <ul class="checklist">
+        <li><strong>Пауза:</strong> закрой лишние вкладки и оставь только одну задачу.</li>
+        <li><strong>Упростить:</strong> попроси AI объяснить в 3 предложениях.</li>
+        <li><strong>Сделать видимым:</strong> попроси таблицу, список или пример.</li>
+        <li><strong>Один шаг:</strong> попроси только следующее действие, без всей теории.</li>
+      </ul>
     </section>
 
     <section id="chat-or-agent">
@@ -264,6 +373,19 @@ Codex: "Вот задача. Посмотри папку, составь пла�
         <article class="card">
           <h3>Когда нужно сохранить знание</h3>
           <pre>Запиши это в короткий файл-памятку, чтобы я могла вернуться позже.</pre>
+        </article>
+        <article class="card">
+          <h3>Когда ответ слишком длинный</h3>
+          <pre>Сделай короче.
+Оставь только главное.
+Дай пример на моей теме.</pre>
+        </article>
+        <article class="card">
+          <h3>Когда нужен точный формат</h3>
+          <pre>Ответь в таблице:
+1 колонка - термин.
+2 колонка - простое объяснение.
+3 колонка - пример.</pre>
         </article>
       </div>
     </section>
@@ -378,6 +500,17 @@ Codex: "Вот задача. Посмотри папку, составь пла�
         <article class="card">
           <h3>Codex: доработать сайт</h3>
           <pre>Добавь на сайт раздел “частые ошибки новичка”. Сохрани стиль страницы. После изменений открой файл и скажи, что добавлено.</pre>
+        </article>
+        <article class="card">
+          <h3>ChatGPT: учиться через интерес</h3>
+          <pre>Объясни [тема AI] через мой интерес: [игра, робототехника, музыка, спорт, история].
+Без длинной теории.
+Дай 3 примера.</pre>
+        </article>
+        <article class="card">
+          <h3>Codex: сделать учебную карточку</h3>
+          <pre>Создай короткую HTML-карточку про [термин].
+На карточке должны быть: название, объяснение, пример и мини-задание.</pre>
         </article>
       </div>
     </section>
