@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI: краткая библиотека для старта</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --paper: #fffefa;
+      --ink: #1f2328;
+      --muted: #626a73;
+      --line: #d8d2c6;
+      --accent: #176b87;
+      --accent-2: #8f4a2f;
+      --soft: #e9f3f5;
+      --soft-2: #f5ebe4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 40px 20px 24px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    main {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .hero {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 34px 0 12px;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .toolbar a {
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 8px 11px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .note {
+      padding: 16px;
+      background: var(--soft);
+      border: 1px solid #c5dce1;
+      border-radius: 8px;
+      margin: 18px 0;
+    }
+
+    .warning {
+      background: var(--soft-2);
+      border-color: #e0c8b8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .term {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .term:last-child {
+      border-bottom: 0;
+    }
+
+    .term strong {
+      color: var(--accent);
+    }
+
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 10px 0 0;
+      padding: 12px;
+      overflow: auto;
+      background: #20242a;
+      color: #f7f7f0;
+      border-radius: 8px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 2px 4px 2px 0;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #eef0e8;
+      color: #424840;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 680px) {
+      .term {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <h1>AI: краткая библиотека для старта</h1>
+      <p class="lead">Сухая шпаргалка для нулевого уровня: что есть что, куда идти с задачей и как просить AI-агента так, чтобы он понял и сделал.</p>
+      <nav class="toolbar" aria-label="Разделы">
+        <a href="#start">С чего начать</a>
+        <a href="#chat-or-agent">ChatGPT или агент</a>
+        <a href="#prompts">Фразы</a>
+        <a href="#how-to-ask">Как писать запросы</a>
+        <a href="#mistakes">Ошибки новичка</a>
+        <a href="#tasks">Примеры задач</a>
+        <a href="#terms-ai">AI-термины</a>
+        <a href="#terms-computer">Компьютерные термины</a>
+        <a href="#safety">Безопасность</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="start">
+      <h2>Самая короткая карта</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>AI-чат</h3>
+          <p>Помогает думать, объяснять, писать, сравнивать и формулировать.</p>
+          <span class="tag">пример: ChatGPT</span>
+        </article>
+        <article class="card">
+          <h3>AI-агент</h3>
+          <p>Работает с папкой: читает файлы, создает документы, меняет код, запускает команды.</p>
+          <span class="tag">пример: Codex</span>
+        </article>
+        <article class="card">
+          <h3>GitHub</h3>
+          <p>Интернет-хранилище проектов и версий. Как облачная папка с историей изменений.</p>
+          <span class="tag">проект = репозиторий</span>
+        </article>
+      </div>
+
+      <div class="note">
+        <strong>Главная мысль:</strong> не надо изучать все инструменты сразу. Для старта достаточно одного чата, одного агента и одной отдельной рабочей папки.
+      </div>
+    </section>
+
+    <section id="chat-or-agent">
+      <h2>В первую очередь: ChatGPT или Codex?</h2>
+      <div class="term">
+        <strong>Иди в ChatGPT</strong>
+        <p>Когда задача туманная: надо подумать, понять, сформулировать, написать текст, разобрать идею, попросить объяснение.</p>
+      </div>
+      <div class="term">
+        <strong>Иди в Codex</strong>
+        <p>Когда нужно сделать что-то в файлах: скачать папку, создать документ, собрать проект, исправить ошибку, посмотреть структуру.</p>
+      </div>
+      <div class="term">
+        <strong>Простой маршрут</strong>
+        <p>Сначала в чате прояснить задачу. Потом принести понятную задачу агенту, чтобы он сделал.</p>
+      </div>
+
+      <pre>ChatGPT: "Помоги понять, что я хочу сделать. Задавай вопросы."
+Codex: "Вот задача. Посмотри папку, составь план и сделай первый маленький шаг."</pre>
+    </section>
+
+    <section id="prompts">
+      <h2>Готовые фразы для агента</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Когда ничего не понятно</h3>
+          <pre>Объясни простыми словами. Дай один следующий шаг. Скажи, что я должна увидеть на экране.</pre>
+        </article>
+        <article class="card">
+          <h3>Когда страшно, что он что-то сломает</h3>
+          <pre>Сначала покажи план. Ничего не меняй в файлах без моего подтверждения.</pre>
+        </article>
+        <article class="card">
+          <h3>Когда агент усложнил</h3>
+          <pre>Ты усложнил. Вернись к минимальной версии. Мне нужен только первый работающий вариант.</pre>
+        </article>
+        <article class="card">
+          <h3>Когда разговор стал длинным</h3>
+          <pre>Собери handoff: цель, что сделано, какие файлы важны, что делать дальше.</pre>
+        </article>
+        <article class="card">
+          <h3>Когда нужно проверить папку</h3>
+          <pre>Посмотри эту папку и кратко объясни: что здесь лежит, с чего начать, какой следующий шаг.</pre>
+        </article>
+        <article class="card">
+          <h3>Когда нужно сохранить знание</h3>
+          <pre>Запиши это в короткий файл-памятку, чтобы я могла вернуться позже.</pre>
+        </article>
+      </div>
+    </section>
+
+    <section id="how-to-ask">
+      <h2>Как писать запросы</h2>
+      <div class="note">
+        <strong>Хороший запрос не обязан быть умным.</strong> Он должен быть конкретным: что у тебя есть, что ты хочешь получить и в каком виде.
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Формула</h3>
+          <pre>У меня есть: ...
+Мне нужно: ...
+Сделай в формате: ...
+Объясняй: просто / кратко / пошагово.
+Если данных не хватает, задай вопросы.</pre>
+        </article>
+        <article class="card">
+          <h3>Для объяснения</h3>
+          <pre>Объясни это как человеку без технического опыта.
+Не используй жаргон.
+Дай 1 пример из жизни и 1 следующий шаг.</pre>
+        </article>
+        <article class="card">
+          <h3>Для работы с файлами</h3>
+          <pre>Посмотри файлы в этой папке.
+Кратко скажи, что здесь важно.
+Потом предложи план.
+Ничего не меняй, пока я не подтвержу.</pre>
+        </article>
+        <article class="card">
+          <h3>Для результата</h3>
+          <pre>Сделай первую простую версию.
+Без лишних функций.
+После этого объясни, что изменилось и где это посмотреть.</pre>
+        </article>
+      </div>
+
+      <h3>Плохо и лучше</h3>
+      <div class="term">
+        <strong>Слишком широко</strong>
+        <p>“Научи меня AI”. Это большая тема, агент может дать слишком много теории.</p>
+      </div>
+      <div class="term">
+        <strong>Лучше</strong>
+        <p>“Объясни разницу между ChatGPT и Codex на 5 предложений. Потом дай одно упражнение на 10 минут”.</p>
+      </div>
+      <div class="term">
+        <strong>Слишком туманно</strong>
+        <p>“Сделай красиво”. У разных людей разное “красиво”.</p>
+      </div>
+      <div class="term">
+        <strong>Лучше</strong>
+        <p>“Сделай сухую и понятную страницу для новичка: крупные заголовки, короткие объяснения, без декоративного шума”.</p>
+      </div>
+    </section>
+
+    <section id="mistakes">
+      <h2>Ошибки новичка</h2>
+      <div class="card">
+        <div class="term">
+          <strong>Просить всё сразу</strong>
+          <p>Лучше не “сделай сайт, бота, базу и деплой”. Начинай с первой маленькой версии.</p>
+        </div>
+        <div class="term">
+          <strong>Не задавать рамки</strong>
+          <p>Если важно “коротко”, “без кода”, “для новичка”, “ничего не менять” — прямо напиши это.</p>
+        </div>
+        <div class="term">
+          <strong>Бояться остановить</strong>
+          <p>Если агент уехал не туда, можно написать: “Стоп. Вернись к задаче. Дай один следующий шаг”.</p>
+        </div>
+        <div class="term">
+          <strong>Не проверять результат</strong>
+          <p>Агент может ошибаться. Проси показать, где смотреть результат и как понять, что всё работает.</p>
+        </div>
+        <div class="term">
+          <strong>Хранить всё в чате</strong>
+          <p>Важные решения лучше записывать в файл: README, заметки, список правил или handoff.</p>
+        </div>
+        <div class="term">
+          <strong>Публиковать секреты</strong>
+          <p>Пароли, токены, API-ключи и файл .env нельзя отправлять в публичные репозитории.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tasks">
+      <h2>Примеры задач для ChatGPT и Codex</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>ChatGPT: понять тему</h3>
+          <pre>Объясни, что такое GitHub, как для человека без технического опыта. Дай 5 основных слов и по одному примеру.</pre>
+        </article>
+        <article class="card">
+          <h3>ChatGPT: сформулировать задачу</h3>
+          <pre>Я хочу сделать маленький сайт-шпаргалку для новичка. Помоги сформулировать задачу для AI-агента. Спроси максимум 3 вопроса.</pre>
+        </article>
+        <article class="card">
+          <h3>ChatGPT: сравнить варианты</h3>
+          <pre>Сравни GitHub Pages, Notion и Google Docs для публикации учебной библиотеки. Пиши коротко: плюсы, минусы, что выбрать новичку.</pre>
+        </article>
+        <article class="card">
+          <h3>Codex: изучить папку</h3>
+          <pre>Посмотри эту папку. Объясни, что здесь лежит, какие файлы главные и с чего начать. Не меняй файлы.</pre>
+        </article>
+        <article class="card">
+          <h3>Codex: создать файл</h3>
+          <pre>Создай README.md для этой папки: что это за проект, как им пользоваться, какие следующие шаги. Пиши для новичка.</pre>
+        </article>
+        <article class="card">
+          <h3>Codex: доработать сайт</h3>
+          <pre>Добавь на сайт раздел “частые ошибки новичка”. Сохрани стиль страницы. После изменений открой файл и скажи, что добавлено.</pre>
+        </article>
+      </div>
+    </section>
+
+    <section id="terms-ai">
+      <h2>AI-термины</h2>
+      <div class="card">
+        <div class="term">
+          <strong>AI / ИИ</strong>
+          <p>Программа, которая умеет работать с языком, объяснять, писать, анализировать и помогать с задачами.</p>
+        </div>
+        <div class="term">
+          <strong>Модель</strong>
+          <p>“Мозг” AI. Разные модели могут лучше писать, рассуждать, кодить или анализировать файлы.</p>
+        </div>
+        <div class="term">
+          <strong>Промпт</strong>
+          <p>Твой запрос к AI. Чем яснее запрос, тем полезнее ответ.</p>
+        </div>
+        <div class="term">
+          <strong>Контекст</strong>
+          <p>Информация, которую AI видит сейчас: твои сообщения, файлы, инструкции, история текущего чата.</p>
+        </div>
+        <div class="term">
+          <strong>Агент</strong>
+          <p>AI-помощник, который может выполнять действия: читать и менять файлы, запускать команды, проверять результат.</p>
+        </div>
+        <div class="term">
+          <strong>Skill</strong>
+          <p>Готовая инструкция для агента под повторяемую задачу. Например: “как делать frontend красиво”.</p>
+        </div>
+        <div class="term">
+          <strong>MCP</strong>
+          <p>Способ подключить агента к внешним сервисам: Google Drive, Figma, Telegram, базам данных.</p>
+        </div>
+        <div class="term">
+          <strong>Handoff</strong>
+          <p>Короткая передача дел: что делали, что важно, что делать дальше. Полезно перед новым чатом.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="terms-computer">
+      <h2>Компьютерные термины</h2>
+      <div class="card">
+        <div class="term">
+          <strong>Папка</strong>
+          <p>Место на компьютере, где лежат файлы проекта.</p>
+        </div>
+        <div class="term">
+          <strong>Файл</strong>
+          <p>Один документ: текст, таблица, картинка, код, настройки.</p>
+        </div>
+        <div class="term">
+          <strong>Проект</strong>
+          <p>Папка с файлами, которые относятся к одной задаче.</p>
+        </div>
+        <div class="term">
+          <strong>Терминал</strong>
+          <p>Окно, где компьютер выполняет текстовые команды. Агент часто пользуется им сам.</p>
+        </div>
+        <div class="term">
+          <strong>Команда</strong>
+          <p>Короткая инструкция компьютеру. Например: скачать проект, запустить тест, открыть папку.</p>
+        </div>
+        <div class="term">
+          <strong>Репозиторий</strong>
+          <p>Проект на GitHub. Обычно это папка с файлами и историей изменений.</p>
+        </div>
+        <div class="term">
+          <strong>Clone</strong>
+          <p>Скачать репозиторий с GitHub на компьютер.</p>
+        </div>
+        <div class="term">
+          <strong>Commit</strong>
+          <p>Сохраненная версия проекта. Как контрольная точка.</p>
+        </div>
+        <div class="term">
+          <strong>Push</strong>
+          <p>Отправить свои сохраненные изменения с компьютера обратно на GitHub.</p>
+        </div>
+        <div class="term">
+          <strong>README</strong>
+          <p>Главный пояснительный файл проекта: что это, как запустить, с чего начать.</p>
+        </div>
+        <div class="term">
+          <strong>.env</strong>
+          <p>Файл с секретами и ключами. Его нельзя публиковать в GitHub.</p>
+        </div>
+        <div class="term">
+          <strong>Deploy</strong>
+          <p>Выложить проект в интернет, чтобы он работал не только на твоем компьютере.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="safety">
+      <h2>Минимальная безопасность</h2>
+      <div class="warning note">
+        <p><strong>Правило 1:</strong> работай с агентом в отдельной папке проекта.</p>
+        <p><strong>Правило 2:</strong> не отправляй в чат пароли, банковские данные, личные документы без необходимости.</p>
+        <p><strong>Правило 3:</strong> файл <code>.env</code> и секретные ключи не публикуй на GitHub.</p>
+        <p><strong>Правило 4:</strong> перед большими изменениями проси план.</p>
+      </div>
+
+      <h2>Твой первый тренировочный сценарий</h2>
+      <div class="card">
+        <p>Создай пустую папку <code>ai-test</code>. Внутри создай файл <code>notes.md</code>. Напиши туда 3 предложения о любой идее.</p>
+        <pre>Прочитай notes.md и создай рядом summary.md с коротким саммари. Ничего за пределами этой папки не трогай.</pre>
+        <p class="small">Цель упражнения: увидеть, как агент читает файл, понимает задачу и создает новый файл.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
